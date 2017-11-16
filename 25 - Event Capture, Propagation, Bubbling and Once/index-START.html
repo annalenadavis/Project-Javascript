@@ -39,6 +39,27 @@
 
 <button></button>
 <script>
+    
+    const divs =  document.querySelectorAll('div');
+    const button = document.querySelector('button');
+    
+    function logText(e) {
+        e.stopPropagation(); //stop bubbling this event up, just choose the innermost click, don't trigger events on parents
+        console.log(this.classList.value);
+    }
+        
+    divs.forEach(div => div.addEventListener('click', logText, {
+        capture: false, //default is false, but if you set to true it will start events at outermost parent and flow down to innermost child
+        once: true //listen for a click, then unbind itself
+    }));
+    
+    button.addEventListener('click', () => {
+        console.log('Click!!!');
+    }, {
+        once: true
+    });
+    
+    
 
 </script>
 </body>
